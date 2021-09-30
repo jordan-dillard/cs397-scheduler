@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getDatabase, onValue, ref, set } from 'firebase/database';
 import React, { useState, useEffect } from 'react';
+import { getAuth, GoogleAuthProvider, onIdTokenChanged, signInWithPopup, signOut } from 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAb25tglMhET0mCeLO0otJsGgexSaDGT6E",
@@ -41,3 +42,7 @@ export const useData = (path, transform) => {
   export const setData = (path, value) => (
     set(ref(database, path), value)
   );
+
+  export const signInWithGoogle = () => {
+    signInWithPopup(getAuth(firebase), new GoogleAuthProvider());
+  };

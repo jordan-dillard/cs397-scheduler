@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {terms, getCourseTerm} from '../utilities/times.js';
 import Course from './Course.js';
+import { signInWithGoogle } from '../utilities/firebase.js';
 
 const CourseList = ({ courses }) => {
     const [term, setTerm] = useState('Fall');
@@ -32,13 +33,23 @@ const CourseList = ({ courses }) => {
     </>
   );
 
+  const SignInButton = () => (
+    <button className="btn btn-secondary btn-sm"
+        onClick={() => signInWithGoogle()}>
+      Sign In
+    </button>
+  );
+
   const TermSelector = ({term, setTerm}) => (
-    <div className="btn-group">
-    { 
-      Object.values(terms).map(value => (
-        <TermButton key={value} term={value} setTerm={setTerm} checked={value === term} />
-      ))
-    }
+    <div className="btn-toolbar justify-content-between">
+      <div className="btn-group">
+      { 
+        Object.values(terms).map(
+          value => <TermButton key={value} term={value} setTerm={setTerm} checked={value === term} />
+        )
+      }
+      </div>
+      <SignInButton />
     </div>
   );
 
